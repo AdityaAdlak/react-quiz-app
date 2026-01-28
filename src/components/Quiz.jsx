@@ -11,11 +11,7 @@ function Quiz() {
   const [showResult, setShowResult] = useState(false);
   const [quit, setQuit] = useState(false);
 
-  const handleAnswer = (answer) => {
-    if (answer === questions[current].correctAnswer) {
-      setScore((prev) => prev + 1);
-    }
-
+  const goNext = () => {
     if (current + 1 < questions.length) {
       setCurrent((prev) => prev + 1);
     } else {
@@ -23,11 +19,24 @@ function Quiz() {
     }
   };
 
+  const handleAnswer = (answer) => {
+    if (answer === questions[current].correctAnswer) {
+      setScore((prev) => prev + 1);
+    }
+    goNext();
+  };
+
+  const handleSkip = () => {
+    goNext();
+  };
+
+  const handleTimeUp = () => {
+    // ⏱️ Time up = auto skip
+    goNext();
+  };
+
   const quitQuiz = () => {
-    const confirmQuit = window.confirm(
-      "Are you sure you want to quit the quiz?"
-    );
-    if (confirmQuit) {
+    if (window.confirm("Are you sure you want to quit the quiz?")) {
       setQuit(true);
       setShowResult(true);
     }
@@ -54,7 +63,11 @@ function Quiz() {
   return (
     <div className="quiz-card">
       <div className="quiz-header">
-        <Timer timeLeft={60} onTimeUp={() => setShowResult(true)} />
+        <Timer
+          duration={15}
+          questionIndex={current}
+          onTimeUp={handleTimeUp}
+        />
         <button className="quit-btn" onClick={quitQuiz}>
           Quit
         </button>
@@ -67,6 +80,10 @@ function Quiz() {
       </p>
 
       <Question data={questions[current]} onAnswer={handleAnswer} />
+
+      <button className="skip-btn" onClick={handleSkip}>
+        Skip Question →
+      </button>
     </div>
   );
 }

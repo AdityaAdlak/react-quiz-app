@@ -194,4 +194,19 @@ body {
     margin: 0 10px;
   }
 }
+.skip-btn {
+  margin-top: 15px;
+  width: 100%;
+  padding: 10px;
+  background: transparent;
+  border: 1px dashed #38bdf8;
+  color: #38bdf8;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.skip-btn:hover {
+  background: #38bdf8;
+  color: #020617;
+}
 
