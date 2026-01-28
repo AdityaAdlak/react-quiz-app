@@ -1,7 +1,7 @@
 function Footer() {
   return (
     <footer className="footer">
-      <p>© 2026 QuizMaster · Built with React & Vite</p>
+      <p>QuizMaster · Made by Aditya</p>
     </footer>
   );
 }
